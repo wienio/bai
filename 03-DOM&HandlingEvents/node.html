@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Create DOM elements</title>
-		<meta charset="UTF-8">
-	</head>
-	<body>
-		<script>
-			// a JavaScript code here ...
-			
-		</script>
-	</body>
+<style>
+	table {
+		margin: auto;
+	}
+
+	td, th {
+		border: 1px solid black;
+		text-align: center;
+		width: 70px;
+	}
+</style>
+
+<head>
+	<title>Create DOM elements</title>
+	<meta charset="UTF-8">
+</head>
+
+<body onload="createTable()">
+	<script>
+		function createTable() {
+			let table = document.createElement('table')
+			let number = 1;
+			for (let i = 1; i <= 2; ++i) {
+				let rowElement = document.createElement('tr')
+				for (let j = 1; j <= 2; ++j) {
+					let columnElement = document.createElement('th')
+					columnElement.innerHTML = (number++)
+					rowElement.appendChild(columnElement)
+				}
+				table.appendChild(rowElement)
+			}
+			document.body.appendChild(table)
+		}
+	</script>
+</body>
+
 </html>
