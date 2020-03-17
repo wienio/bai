@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Peoples</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Peoples</h1>
+    <p>Open a console and then click the button to show all peoples data</p>
+    <input type="button" onclick="showPeoplesData()" value="Display peoples data">
+    <p id="peoplesData"></p>
+
+    <script>
+        function showPeoplesData() {
+            let rawFile = new XMLHttpRequest()
+            rawFile.open("GET", 'people.json')
+            rawFile.onreadystatechange = () => {
+                if (rawFile.readyState === 4) {
+                    let peoples = JSON.parse(rawFile.responseText)
+                    let htmlText = []
+                    peoples.forEach(person => {
+                        htmlText.push(person.name, person.surname.toUpperCase() + ',', person.country, '<br>')
+                    })
+                    document.getElementById('peoplesData').innerHTML = htmlText.join(' ')
+                }
+            }
+            rawFile.send()
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Currency value for USD, GBP and EUR</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Currency</h1>
+    <p>Click the button to get current exchange rates for EUR, GBP and USD</p>
+    <input type="button" onclick="showExchangeRates()" value="Display current exchange rates data">
+    <p id="exchangeRates"></p>
+
+    <script>
+        function showExchangeRates() {
+            let request = new XMLHttpRequest()
+            request.open('GET', 'http://api.nbp.pl/api/exchangerates/tables/a/?format=json', false)
+            request.onreadystatechange = () => {
+                if (request.readyState === 4 && request.status === 200) {
+                    let currencies = JSON.parse(request.responseText)
+                    let exchangeRates = currencies[0].rates
+                    let usdExchangeRate = exchangeRates.find(val => val.code === 'USD').mid
+                    let eurExchangeRate = exchangeRates.find(val => val.code === 'EUR').mid
+                    let gbpExchangeRate = exchangeRates.find(val => val.code === 'GBP').mid
+
+                    let today = new Date();
+                    let dd = String(today.getDate()).padStart(2, '0')
+                    let mm = String(today.getMonth() + 1).padStart(2, '0')
+                    let yyyy = today.getFullYear();
+                    today = dd + '.' + mm + '.' + yyyy;
+
+                    document.getElementById('exchangeRates').innerHTML = 'Exchange currency rates for <b>' + today + '<br>USD:</b> '
+                        + usdExchangeRate + '<br><b>EUR: </b>' + eurExchangeRate + '<br><b>GBP: </b>' + gbpExchangeRate
+                }
+            }
+            request.send()
+        }
+    </script>
+
+</body>
+
+</html>

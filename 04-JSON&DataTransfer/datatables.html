@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Peoples</title>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+</head>
+
+<body>
+    <h1>Peoples</h1>
+    <p>Open a console and then click the button to show all peoples data</p>
+    <input type="button" onclick="showPeoplesData()" value="Display peoples data">
+    <p id="peoplesData"></p>
+
+    <script>
+        function showPeoplesData() {
+            let rawFile = new XMLHttpRequest()
+            rawFile.open("GET", 'people.json')
+            rawFile.onreadystatechange = () => {
+                if (rawFile.readyState === 4) {
+                    let peoples = JSON.parse(rawFile.responseText)
+                    let htmlText = ["<table id='people_table'>", '<thead><tr><th>Name</th><th>Surname</th><th>Country</th></tr></thead>', '<tbody>']
+                    peoples.forEach(person => {
+                        htmlText.push('<tr><td>', person.name, '</td><td>', person.surname, '</td><td>', person.country, '</td></tr>')
+                    })
+                    htmlText.push('</tbody></table>')
+                    $('#peoplesData').html(htmlText.join(''))
+                    $('#people_table').DataTable()
+                }
+            }
+            rawFile.send()
+        }
+    </script>
+
+</body>
+
+</html>
