@@ -9,7 +9,7 @@
   <h1>TODO list</h1>
   <div id="app">
     <ol>
-      <li v-for="value in todo">{{value}}</li>
+      <li v-for="value in sortedList">{{value}}</li>
     </ol>
   </div>
   <script>
@@ -22,6 +22,11 @@
           'Pay cable bill',
           'Go shopping'
         ]
+      },
+      computed: {
+          sortedList: function() {
+              return this.todo.sort();
+          }
       }
     });
   </script>

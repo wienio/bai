@@ -1,9 +1,50 @@
 <!DOCTYPE html>
 <html>
+
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 4px;
+  }
+
+  table {
+    width: 50%;
+  }
+
+  .center {
+    text-align: center;
+    margin: 25px auto 0 auto;
+  }
+</style>
+
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
+  <h1 class="center">Films</h1>
+  <table id="app" class="center">
+    <thead>
+      <tr>
+        <th><b>Title</b></th>
+        <th><b>Year</b></th>
+        <th><b>Director</b></th>
+        <th><b>Budget</b></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="film in films">
+        <td>{{film.title}}</td>
+        <td>{{film.year}}</td>
+        <td>{{film.director}}</td>
+        <td>$ {{film.budget}}</td>
+      </tr>
+    </tbody>
+  </table>
+
   <script>
     var app = new Vue({
       el: '#app',
@@ -33,10 +74,10 @@
             director: 'King Vidor',
             budget: 6000000
           }
-        ] 
-        }
+        ]
       }
     });
   </script>
 </body>
+
 </html>

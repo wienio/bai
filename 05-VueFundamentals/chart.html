@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
+
+<style>
+  .chart-box {
+    width: 60%;
+    margin: auto;
+  }
+</style>
+
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
+  <h1>Programming languages popularity</h1>
+  <div id="app">
+    <input type="button" v-on:click="createChart(languages)" value="Display languages popularity"><br>
+    <div class="chart-box"><canvas id="popularityChart-0"></canvas></div>
+  </div>
   <script>
     var app = new Vue({
       el: '#app',
       data: {
-        films: [
+        languages: [
           {
             language: 'Python',
             popularity: 25.95
@@ -29,9 +44,46 @@
             language: 'Php',
             popularity: 7.37
           }
-        ] 
+        ]
+      },
+      methods: {
+        createChart: (data) => {
+          let ctx = document.getElementById('popularityChart-0').getContext('2d')
+          let languageNames = []
+          let languagePopularity = []
+          data.forEach(element => {
+            languageNames.push(element.language)
+            languagePopularity.push(element.popularity)
+          })
+
+          let config = {
+            type: 'bar',
+            data: {
+              labels: languageNames,
+              datasets: [{
+                data: languagePopularity
+              }]
+            },
+            options: {
+              legend: false,
+              tooltips: false,
+              elements: {
+                rectangle: {
+                  backgroundColor: 'rgb(50,205,50)',
+                  borderColor: 'rgb(50,205,50)',
+                  borderWidth: 2
+                }
+              }
+            }
+          }
+
+          let chart = new Chart(ctx, config)
+          chart.update()
+        }
       }
     });
+
   </script>
 </body>
+
 </html>
