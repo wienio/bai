@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    span {
+        display: inline-block;
+        width: 120px;
+        text-align: right;
+    }
+    button {
+        margin-top: 10px;
+        width: 100px;
+    }
+</style>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <span>Book title:</span>
+        <input type="text" v-model="title"><br>
+        <span>Author name:</span>
+        <input type="text" v-model="authorName"><br>
+        <span>Author surname:</span>
+        <input type="text" v-model="authorSurname"><br>
+        <button v-on:click="logData" value="Save">Save</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                title: '',
+                authorName: '',
+                authorSurname: ''
+            },
+            methods: {
+                logData: function () {
+                    console.log('Book title is: ' + this.title + '\nAuthor name is: ' + this.authorName + '\nAuthor surname is: ' + this.authorSurname)
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

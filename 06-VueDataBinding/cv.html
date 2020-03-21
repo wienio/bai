@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    span {
+        display: inline-block;
+        width: 200px;
+        text-align: left;
+        margin-top: 8px;
+        margin-bottom: 5px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .center-wrapper {
+        text-align: center;
+    }
+</style>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>CV</h1>
+        <div class="center-wrapper">
+            <span>Your name:</span>
+            <input type="text" v-model="cv.name"><br>
+            <span>Your surname:</span>
+            <input type="text" v-model="cv.surname"><br>
+            <span>Your age:</span>
+            <input type="number" v-model="cv.age"><br>
+            <span>Your sex:</span>
+            <input type="radio" id="male" value="Male" v-model="cv.sex">
+            <label for="male">Male</label>
+            <input type="radio" id="female" value="Female" v-model="cv.sex">
+            <label for="female">Female</label><br>
+            <span>Select your education level</span>
+            <select v-model="cv.education">
+                <option disabled value="">Please select you education level</option>
+                <option>None</option>
+                <option>Primary school</option>
+                <option>Secondary school</option>
+                <option>Higher</option>
+            </select><br>
+            <span style="text-align: center;">Your skills:</span><br>
+            <input type="checkbox" id="computer-skills" value="Computer skills" v-model="cv.skills">
+            <label for="computer-skills">Computer Skills</label>
+            <input type="checkbox" id="driving-license" value="Driving license" v-model="cv.skills">
+            <label for="driving-license">Driving license</label>
+            <input type="checkbox" id="creativity" value="Creativity" v-model="cv.skills">
+            <label for="creativity">Creativity</label>
+            <input type="checkbox" id="teamwork" value="Teamwork" v-model="cv.skills">
+            <label for="teamwork">Teamwork</label><br>
+            <button @click="saveCv()">Send & save CV</button>
+            <button @click="readCv()">Read CV</button>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                cv: {
+                    name: '',
+                    surname: '',
+                    age: 0,
+                    sex: '',
+                    education: '',
+                    skills: []
+                }
+            },
+            methods: {
+                saveCv: function () {
+                    console.log(`Information from CV:\n${this.cv.name} ${this.cv.surname} ${this.cv.age} ${this.cv.sex}\n${this.cv.education} ${this.cv.skills}`)
+                    localStorage.setItem('CV', JSON.stringify(this.cv))
+                },
+                readCv: function () {
+                    let cvFromLocalStorage = JSON.parse(localStorage.getItem('CV'))
+                    this.cv.name = cvFromLocalStorage.name
+                    this.cv.surname = cvFromLocalStorage.surname
+                    this.cv.age = cvFromLocalStorage.age
+                    this.cv.sex = cvFromLocalStorage.sex
+                    this.cv.education = cvFromLocalStorage.education
+                    this.cv.skills = cvFromLocalStorage.skills
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

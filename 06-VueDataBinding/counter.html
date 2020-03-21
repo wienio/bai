@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    button {
+        background-color: #4CAF50;
+        padding: 15px 32px;
+        font-size: 16px;
+        color: white;
+        border-radius: 10px;
+        border: none;
+    }
+
+    button:hover {
+        background-color: #3e8e41
+    }
+</style>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click="counter++">Button has been clicked: {{counter}} times</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0
+            }
+        });
+    </script>
+
+</body>
+
+</html>
